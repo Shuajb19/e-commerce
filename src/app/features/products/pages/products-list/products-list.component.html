@@ -1,0 +1,17 @@
+<div class="products-container">
+  <div class="products-grid">
+    <app-product-card
+      *ngFor="let product of displayedProducts()"
+      [product]="product">
+    </app-product-card>
+  </div>
+
+  <div class="loading-indicator" *ngIf="isLoading()">
+    <div class="spinner"></div>
+    <p>Loading more products...</p>
+  </div>
+
+  <div class="no-products" *ngIf="displayedProducts().length === 0 && !isLoading()">
+    <p>No products available</p>
+  </div>
+</div>

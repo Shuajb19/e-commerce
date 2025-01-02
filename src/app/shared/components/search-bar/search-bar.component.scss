@@ -1,0 +1,25 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 22px;
+  padding: 7px 15px;
+}
+
+.search-bar__input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  padding: 2px;
+
+}
+
+.search-bar__icon {
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}

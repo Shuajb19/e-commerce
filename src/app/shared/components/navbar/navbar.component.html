@@ -1,0 +1,12 @@
+<div class="navbar">
+  <div class="navbar__logo">
+    <img src="assets/images/e-commerce-logo.png" alt="logo" style="width: 80px; height: 80px;">
+  </div>
+  <div class="navbar__search">
+    <app-search-bar></app-search-bar>
+  </div>
+  <div class="navbar__cart" routerLink="/cart">
+    <app-cart-icon [width]="24" [height]="24" color="white"></app-cart-icon>
+    <span class="navbar__cart-count">0</span>
+  </div>
+</div>
