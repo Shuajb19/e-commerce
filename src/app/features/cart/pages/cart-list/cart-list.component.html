@@ -1,0 +1,40 @@
+<div>
+    <h1>Cart List</h1>
+    
+    <table *ngIf="getCartItems().length" class="cart-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of getCartItems(); trackBy: trackById">
+                <td>{{ item.id }}</td>
+                <td>{{ item.generic_name_en }}</td>
+                <td>{{ item.price | currency }}</td>
+                <td class="quantity-cell">
+                    <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
+                    <span>{{ item.quantity }}</span>
+                    <button (click)="increaseQuantity(item)">+</button>
+                </td>
+                <td>
+                    <button class="remove-btn" (click)="removeItem(item)">Remove</button>
+                </td>
+                <td>{{ item.price * item.quantity | currency }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">Total</td>
+                <td>{{ calculateTotal() | currency }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p *ngIf="!getCartItems().length">Your cart is empty</p>
+</div>

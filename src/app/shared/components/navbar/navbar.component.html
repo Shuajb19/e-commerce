@@ -1,12 +1,12 @@
 <div class="navbar">
   <div class="navbar__logo">
-    <img src="assets/images/e-commerce-logo.png" alt="logo" style="width: 80px; height: 80px;">
+    <img src="assets/images/e-commerce-logo.png" class="navbar__logo-image" alt="logo">
   </div>
   <div class="navbar__search">
     <app-search-bar></app-search-bar>
   </div>
-  <div class="navbar__cart" routerLink="/cart">
+  <div class="navbar__cart" routerLink="/cart-list">
     <app-cart-icon [width]="24" [height]="24" color="white"></app-cart-icon>
-    <span class="navbar__cart-count">0</span>
+    <span class="navbar__cart-count">{{ getTotalItems() }}</span>
   </div>
 </div>

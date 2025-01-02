@@ -16,8 +16,8 @@ export class ProductsListComponent implements OnInit {
   page = signal(1);
   pageSize = signal(20);
   currentIndex = signal(0);
-  productsPerBatch = signal(10);
-  totalProducts = signal(300);
+  productsPerBatch = signal(20);
+  totalProducts = signal(60);
   isLoading = signal(false);
 
   constructor(private productService: ProductService) { }

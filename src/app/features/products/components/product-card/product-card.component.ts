@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {Product} from '../../services/api.service';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +14,7 @@ export class ProductCardComponent {
   @Input() product!: Product;
 
   // private router = inject(Router);
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
 
   navigateToProductDetails(id: number) {
@@ -21,6 +22,6 @@ export class ProductCardComponent {
   }
 
   addToCartAction(product: any) {
-    // this.cartService.addToCart(product);
+    this.cartService.addToCart(product);
   }
 }
