@@ -1,7 +1,6 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  width: 200px;
   height: 350px;
   padding: 8px;
   background: white;
@@ -74,7 +73,6 @@
 
 @media (max-width: 768px) {
   .product-card {
-    max-width: 200px;
     height: 300px;
 
     .product-card__title {
@@ -85,9 +83,4 @@
       font-size: 18px;
     }
   }
-
-  // @media (max-width: 480px) {
-  //   max-width: 180px;
-  //   height: 280px;
-  // }
 }
