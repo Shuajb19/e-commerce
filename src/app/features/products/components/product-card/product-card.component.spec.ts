@@ -18,8 +18,8 @@ describe('ProductCardComponent', () => {
 
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
-    // Provide mock product data
     component.product = {
+      id: 123,
       code: '123',
       generic_name_en: 'Test Product',
       brands: 'Test Brand',

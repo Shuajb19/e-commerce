@@ -11,7 +11,6 @@ describe('CartService', () => {
       providers: [CartService]
     });
     
-    // Clear localStorage before each test
     localStorage.clear();
     
     mockCartItem = {
@@ -24,9 +23,8 @@ describe('CartService', () => {
     };
 
     service = TestBed.inject(CartService);
-    service.cartItems.set([]); // Clear cart state
+    service.cartItems.set([]);
     
-    // Mock the random price generation for all tests
     spyOn(service, 'generateRandomPrice').and.returnValue(50);
   });
 
@@ -79,7 +77,7 @@ describe('CartService', () => {
     });
 
     it('should calculate TVSH (18%) correctly', () => {
-      const expectedTVSH = 50 * 0.18; // 18% of 50
+      const expectedTVSH = 50 * 0.18;
       expect(service.tvsh()).toBeCloseTo(expectedTVSH, 2);
     });
 
@@ -113,18 +111,14 @@ describe('CartService', () => {
     });
 
     it('should load cart items from localStorage on initialization', () => {
-      // First, reset the testing module
       TestBed.resetTestingModule();
       
-      // Set up localStorage with a cart item
       localStorage.setItem('cart', JSON.stringify([mockCartItem]));
       
-      // Create a new testing module and service instance
       TestBed.configureTestingModule({
         providers: [CartService]
       });
       
-      // Get a new instance of the service - this should load from localStorage
       const newService = TestBed.inject(CartService);
       
       expect(newService.cartItems().length).toBe(1);
