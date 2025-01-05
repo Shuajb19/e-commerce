@@ -3,8 +3,11 @@
     <img [src]="product.image_url" [alt]="product.generic_name_en">
   </div>
   <div class="product-card__content">
-    <h3 class="product-card__title">{{ product.generic_name_en }}</h3>
-    <p class="product-card__price">{{ product.brands }}</p>
+    <div class="product-card__content--details">
+      <p class="product-card__brand">{{ product.brands }}</p>
+      <h3 class="product-card__title">{{ product.generic_name_en }}</h3>
+      <!-- <p class="product-card__brand">23.00€</p> -->
+    </div>
     <button class="product-card__button" (click)="addToCartAction(product)">Add to cart</button>
   </div>
 </div>

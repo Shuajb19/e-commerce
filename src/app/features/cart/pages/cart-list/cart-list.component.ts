@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { CartService } from '../../../products/services/cart-service';
 import { CartItem } from '../../../products/models/model';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.scss'
 })
@@ -14,12 +15,12 @@ export class CartListComponent {
 
   constructor(private cartService: CartService) {}
 
+  couponCode = signal('');
+  showCouponError = signal(false);
+  showCouponSuccess = signal(false);
+
   getCartItems() {
     return this.cartService.getCartItems();
-  }
-
-  calculateTotal() {
-    return this.cartService.calculateTotal();
   }
 
   trackById(index: number, item: CartItem): number {
@@ -38,5 +39,32 @@ export class CartListComponent {
 
   removeItem(item: CartItem): void {
     this.cartService.removeFromCart(item.id);
+  }
+
+  subtotal() {
+    return this.cartService.subtotal();
+  }
+
+  calculateTotal() {
+    return this.cartService.total();
+  }
+
+  calculateTVSH() {
+    return this.cartService.tvsh();
+  }
+
+  calculateDiscount() {
+    return this.cartService.discount();
+  }
+
+  applyCoupon(code: string) {
+    const isValid = this.cartService.applyDiscount(code);
+    this.showCouponError.set(!isValid);
+    this.showCouponSuccess.set(isValid);
+  }
+
+  clearCart() {
+    this.couponCode.set('');
+    this.cartService.clearCart();
   }
 }

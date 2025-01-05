@@ -13,9 +13,11 @@ import { CartService } from '../../services/cart-service';
 export class ProductCardComponent {
   @Input() product!: Product;
 
-  // private router = inject(Router);
   constructor(private router: Router, private cartService: CartService) {}
 
+  getPrice() {
+    return this.cartService.generateRandomPrice();
+  }
 
   navigateToProductDetails(id: number) {
     this.router.navigate(['/products', id]);

@@ -1,7 +1,8 @@
-import {Component, HostListener, OnInit, signal} from '@angular/core';
+import {Component, computed, HostListener, OnInit, signal, effect} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProductCardComponent} from '../../components/product-card/product-card.component';
 import {Product, ProductService} from '../../services/api.service';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-products-list',
@@ -17,10 +18,22 @@ export class ProductsListComponent implements OnInit {
   pageSize = signal(20);
   currentIndex = signal(0);
   productsPerBatch = signal(20);
-  totalProducts = signal(60);
+  totalProducts = signal(300);
   isLoading = signal(false);
+  alertMessage = signal(false);
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, public cartService: CartService) {
+    effect(() => {
+      const message = this.cartService.alertMessage();
+      this.alertMessage.set(message);
+      
+      if (message) {
+        setTimeout(() => {
+          this.cartService.alertMessage.set(false);
+        }, 2000);
+      }
+    });
+  }
 
   ngOnInit() {
     this.getProducts();
@@ -66,7 +79,7 @@ export class ProductsListComponent implements OnInit {
   onScroll(): void {
     if (this.isLoading()) return;
 
-    const bottomOfWindow = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+    const bottomOfWindow = window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
     if (bottomOfWindow) {
       this.loadNextBatch();
     }
