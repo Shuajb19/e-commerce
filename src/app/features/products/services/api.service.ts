@@ -7,6 +7,7 @@ export interface Product {
   brands?: string;
   categories?: string;
   image_url?: string;
+  price?: number;
 }
 
 export interface ApiResponse {

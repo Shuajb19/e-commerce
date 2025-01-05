@@ -1,61 +1,253 @@
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
+.cart-container {
     margin-top: 20px;
-    
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
+}
+
+.cart-container__table {
+    font-family: 'Inter', sans-serif;
+    width: 70%;
+    float: left;
+}
+
+.cart-container__table--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+
+    h2 {
+        color: #2c2c2c;
     }
-    
-    th {
-        background-color: #f8f9fa;
-        font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: center;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.cart-list__image {
+    width: 80px;
+    height: 50px;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+    .cart-container__table {
+        width: 100%;
     }
-    
-    tr:hover {
-        background-color: #f5f5f5;
+
+    table {
+        border: 0;
     }
 
-    .quantity-cell {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        button {
-            padding: 4px 8px;
-            border: 1px solid #ddd;
-            background: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-
-            &:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-
-            &:hover:not(:disabled) {
-                background: #f0f0f0;
-            }
-        }
-
-        span {
-            min-width: 30px;
-            text-align: center;
-        }
+    table caption {
+        font-size: 1.3em;
     }
 
-    .remove-btn {
-        padding: 6px 12px;
-        background: #dc3545;
-        color: white;
+    table thead {
         border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+.quantity-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    button {
+        padding: 4px 8px;
+        border: 1px solid #ddd;
+        background: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            background: #f0f0f0;
+        }
+    }
+
+    span {
+        padding: 10px;
+    }
+}
+
+.remove-btn {
+    padding: 6px 12px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background: #c82333;
+    }
+}
+
+.coupon-section {
+    width: 28%;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 37px;
+    margin-bottom: 20px;
+    color: #6E6E6E;
+    font-family: 'Inter', sans-serif;
+
+    h3 {
+        color: #2c2c2c;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.coupon-section__coupon {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+    .coupon__label {
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 16px;
+        outline: none;
+        font-family: 'Inter', sans-serif;
+
+        &:focus {
+            border: 1px solid #FF6F00;
+        }
+    }
+
+    button {
+        background-color: #FF6F00;
+        border: 1px solid #FF6F00;
+        color: white;
+        padding: 8px 16px;
+        margin-left: 10px;
         border-radius: 4px;
         cursor: pointer;
 
         &:hover {
-            background: #c82333;
+            background-color: white;
+            color: #FF6F00;
+            border: 1px solid #FF6F00;
+            transition: all 0.4s ease;
+        }
+
+    }
+
+    .coupon-section__coupon--form {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+}
+
+.coupon-section__calculation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #6E6E6E;
+
+
+    .coupon-section__calculation__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #abacad;
+
+        &--total {
+            color: #FF6F00;
+        }
+
+        h2 {
+            color: #2c2c2c;
         }
     }
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.success-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }

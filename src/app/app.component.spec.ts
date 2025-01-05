@@ -1,10 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { CartService } from './features/products/services/cart-service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        AppComponent,
+        RouterModule.forRoot([]),
+        NavbarComponent
+      ],
+      providers: [CartService]
     }).compileComponents();
   });
 
@@ -24,6 +32,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, e-commerce');
+    const title = compiled.querySelector('.navbar__logo-image');
+    expect(title).toBeTruthy();
   });
 });

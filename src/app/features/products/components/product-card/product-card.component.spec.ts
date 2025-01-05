@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProductCardComponent } from './product-card.component';
+import { Router } from '@angular/router';
+import { CartService } from '../../services/cart-service';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
@@ -8,12 +9,23 @@ describe('ProductCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductCardComponent]
-    })
-    .compileComponents();
+      imports: [ProductCardComponent],
+      providers: [
+        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
+        CartService
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
+    // Provide mock product data
+    component.product = {
+      code: '123',
+      generic_name_en: 'Test Product',
+      brands: 'Test Brand',
+      image_url: 'test.jpg',
+      price: 10
+    };
     fixture.detectChanges();
   });
 

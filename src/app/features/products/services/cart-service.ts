@@ -6,13 +6,34 @@ import { CartItem } from '../models/model';
 })
 export class CartService {
   cartItems = signal<CartItem[]>([]);
+  discountPercentage = signal(0);
+  alertMessage = signal(false);
 
   totalItems = computed(() =>
     this.cartItems().reduce((sum, item) => sum + item.quantity, 0)
   );
-  totalAmount = computed(() =>
+
+  subtotal = computed(() =>
     this.cartItems().reduce((sum, item) => sum + (item.price * item.quantity), 0)
   );
+
+  total = computed(() => {
+    const subtotalAmount = this.subtotal();
+    const tvshAmount = this.tvsh();
+    const discountAmount = (subtotalAmount * this.discountPercentage()) / 100;
+    return subtotalAmount + tvshAmount - discountAmount;
+  });
+
+  tvsh = computed(() => 
+    this.cartItems().reduce((total, item) =>
+      total + (item.price * item.quantity * 0.18), 0
+    )
+  );
+
+  discount = computed(() => {
+    const subtotalAmount = this.subtotal();
+    return (subtotalAmount * this.discountPercentage()) / 100;
+  });
 
   constructor() {
     const savedCart = localStorage.getItem('cart');
@@ -21,11 +42,12 @@ export class CartService {
     }
   }
 
-  private generateRandomPrice(): number {
+  generateRandomPrice(): number {
     return Number((Math.random() * (100 - 10) + 10).toFixed(2));
   }
 
   addToCart(item: CartItem): void {
+    this.alertMessage.set(true);
     this.cartItems.update(items => {
       const existingItem = items.find(i => i.id === item.id);
 
@@ -40,6 +62,7 @@ export class CartService {
       const newItem: CartItem = {
         id: item.id,
         generic_name_en: item.generic_name_en,
+        image_url: item.image_url,
         brands: item.brands,
         price: this.generateRandomPrice(),
         quantity: 1
@@ -73,12 +96,6 @@ export class CartService {
     this.updateStorage();
   }
 
-  calculateTotal(): number {
-    return this.getCartItems().reduce((total, item) =>
-      total + (item.price * item.quantity), 0
-    );
-  }
-
   clearCart(): void {
     this.cartItems.set([]);
     this.updateStorage();
@@ -86,5 +103,14 @@ export class CartService {
 
   updateStorage(): void {
     localStorage.setItem('cart', JSON.stringify(this.cartItems()));
+  }
+
+  applyDiscount(code: string): boolean {
+    if (code === 'KODELABS10') {
+      this.discountPercentage.set(10);
+      return true;
+    }
+    this.discountPercentage.set(0);
+    return false;
   }
 }

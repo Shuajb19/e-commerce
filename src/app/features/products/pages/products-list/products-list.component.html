@@ -14,4 +14,8 @@
   <div class="no-products" *ngIf="displayedProducts().length === 0 && !isLoading()">
     <p>No products available</p>
   </div>
+
+  <div class="alert-message" *ngIf="alertMessage()">
+    <p>Added to cart successfully</p>
+  </div>
 </div>
