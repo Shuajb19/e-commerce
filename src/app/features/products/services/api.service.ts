@@ -1,21 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-export interface Product {
-  code: string;
-  generic_name_en: string;
-  brands?: string;
-  categories?: string;
-  image_url?: string;
-  price?: number;
-}
-
-export interface ApiResponse {
-  products: Product[];
-  count: number;
-  page: number;
-  page_size: number;
-}
+import {ApiResponse} from '../models/ApiResponseModel';
 
 @Injectable({
   providedIn: 'root'

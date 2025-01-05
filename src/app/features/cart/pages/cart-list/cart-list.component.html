@@ -17,13 +17,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of getCartItems(); trackBy: trackById">
+                <tr *ngFor="let item of getCartItems()">
                     <td data-label="ID">{{ item.id }}</td>
                     <td data-label="Image">
                         <img class="cart-list__image" [src]="item.image_url" [alt]="item.generic_name_en">
                     </td>
-                    <td data-label="Name">{{ item.generic_name_en }}</td>
-                    <td data-label="Price">{{ item.price | currency }}</td>
+                    <td data-label="Name" style="height: 32px;">{{ item.generic_name_en }}</td>
+                    <td data-label="Price">{{ item.price | currency: 'EUR' }}</td>
                     <td data-label="Quantity" class="quantity-cell">
                         <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
                         <span>{{ item.quantity }}</span>
@@ -32,7 +32,7 @@
                     <td data-label="Actions">
                         <button class="remove-btn" (click)="removeItem(item)">Remove</button>
                     </td>
-                    <td data-label="Total">{{ item.price * item.quantity | currency }}</td>
+                    <td data-label="Total">{{ item.price * item.quantity | currency: 'EUR' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -40,11 +40,10 @@
     </div>
 
 
-
     <div class="coupon-section">
         <h3>Total order</h3>
         <div class="coupon-section__coupon">
-            <label for="coupon__label">Coupon Code</label>
+            <label for="coupon__input">Coupon Code</label>
             <div class="coupon-section__coupon--form">
                 <input type="text" id="coupon__input" placeholder="Enter coupon code" [ngModel]="couponCode()"
                     (ngModelChange)="couponCode.set($event)" [disabled]="getCartItems().length === 0">
@@ -56,19 +55,19 @@
         <div class="coupon-section__calculation">
             <div class="coupon-section__calculation__item">
                 <p>Subtotal:</p>
-                <span>{{ subtotal() | currency }}</span>
+                <span>{{ subtotal() | currency: 'EUR' }}</span>
             </div>
             <div class="coupon-section__calculation__item">
                 <p>TVSH 18%:</p>
-                <span>{{ calculateTVSH() | currency }}</span>
+                <span>{{ calculateTVSH() | currency: 'EUR' }}</span>
             </div>
             <div class="coupon-section__calculation__item">
                 <p>Discount:</p>
-                <span>-{{ calculateDiscount() | currency }}</span>
+                <span>-{{ calculateDiscount() | currency: 'EUR' }}</span>
             </div>
             <div class="coupon-section__calculation__item">
                 <h2>Total:</h2>
-                <span class="coupon-section__calculation__item--total">{{ calculateTotal() | currency }}</span>
+                <span class="coupon-section__calculation__item--total">{{ calculateTotal() | currency: 'EUR' }}</span>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ export class CartService {
     return subtotalAmount + tvshAmount - discountAmount;
   });
 
-  tvsh = computed(() => 
+  tvsh = computed(() =>
     this.cartItems().reduce((total, item) =>
       total + (item.price * item.quantity * 0.18), 0
     )
@@ -58,13 +58,13 @@ export class CartService {
             : i
         );
       }
-
+      
       const newItem: CartItem = {
         id: item.id,
         generic_name_en: item.generic_name_en,
         image_url: item.image_url,
         brands: item.brands,
-        price: this.generateRandomPrice(),
+        price: item.price,
         quantity: 1
       };
 
@@ -106,7 +106,7 @@ export class CartService {
   }
 
   applyDiscount(code: string): boolean {
-    if (code === 'KODELABS10') {
+    if (code.toLowerCase() === 'KODELABS10'.toLowerCase()) {
       this.discountPercentage.set(10);
       return true;
     }

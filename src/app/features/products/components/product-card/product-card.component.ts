@@ -1,29 +1,29 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Product} from '../../services/api.service';
 import { CartService } from '../../services/cart-service';
+import {Product} from '../../models/ProductModel';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
+  productPrice: number = 0;
 
   constructor(private router: Router, private cartService: CartService) {}
 
-  getPrice() {
-    return this.cartService.generateRandomPrice();
-  }
-
-  navigateToProductDetails(id: number) {
-    this.router.navigate(['/products', id]);
+  ngOnInit() {
+    const savedItems = this.cartService.getCartItems();
+    const savedItem = savedItems.find(item => item.id === this.product.id);
+    this.productPrice = savedItem ? savedItem.price : this.cartService.generateRandomPrice();
   }
 
   addToCartAction(product: any) {
-    this.cartService.addToCart(product);
+    this.cartService.addToCart({ ...product, price: this.productPrice });
   }
 }

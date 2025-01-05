@@ -187,13 +187,13 @@ table th {
         font-family: 'Inter', sans-serif;
 
         &:focus {
-            border: 1px solid #FF6F00;
+            border: 1px solid var(--primary-color);
         }
     }
 
     button {
-        background-color: #FF6F00;
-        border: 1px solid #FF6F00;
+        background-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
         color: white;
         padding: 8px 16px;
         margin-left: 10px;
@@ -202,8 +202,8 @@ table th {
 
         &:hover {
             background-color: white;
-            color: #FF6F00;
-            border: 1px solid #FF6F00;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
             transition: all 0.4s ease;
         }
 
@@ -231,7 +231,7 @@ table th {
         border-bottom: 1px solid #abacad;
 
         &--total {
-            color: #FF6F00;
+            color: var(--primary-color);
         }
 
         h2 {

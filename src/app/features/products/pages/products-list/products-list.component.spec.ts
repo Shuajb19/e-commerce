@@ -55,7 +55,7 @@ describe('ProductsListComponent', () => {
   it('should load initial products', fakeAsync(() => {
     fixture.detectChanges();
     tick();
-    
+
     expect(productService.getProducts).toHaveBeenCalledWith(1, 20);
     expect(component.products().length).toBe(1);
   }));
@@ -64,12 +64,12 @@ describe('ProductsListComponent', () => {
     fixture.detectChanges();
     tick();
 
-    // Mock the window scroll event
+    // Here we scroll the window
     const scrollEvent = new Event('scroll');
     Object.defineProperty(window, 'innerHeight', { value: 500 });
     Object.defineProperty(window, 'scrollY', { value: 1000 });
     Object.defineProperty(document.body, 'offsetHeight', { value: 1400 });
-    
+
     window.dispatchEvent(scrollEvent);
     tick(100);
     fixture.detectChanges();
@@ -91,10 +91,10 @@ describe('ProductsListComponent', () => {
     fixture.detectChanges();
     component.cartService.alertMessage.set(true);
     fixture.detectChanges();
-    
+
     const alertElement = fixture.debugElement.query(By.css('.alert-message'));
     expect(alertElement).toBeTruthy();
-    
+
     tick(2000);
     fixture.detectChanges();
     expect(component.cartService.alertMessage()).toBeFalse();

@@ -65,6 +65,8 @@ export class CartListComponent {
 
   clearCart() {
     this.couponCode.set('');
+    this.showCouponError.set(false);
+    this.showCouponSuccess.set(false);
     this.cartService.clearCart();
   }
 }

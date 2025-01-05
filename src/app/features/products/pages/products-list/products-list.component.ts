@@ -1,8 +1,9 @@
 import {Component, computed, HostListener, OnInit, signal, effect} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProductCardComponent} from '../../components/product-card/product-card.component';
-import {Product, ProductService} from '../../services/api.service';
+import {ProductService} from '../../services/api.service';
 import { CartService } from '../../services/cart-service';
+import {Product} from '../../models/ProductModel';
 
 @Component({
   selector: 'app-products-list',
@@ -18,7 +19,7 @@ export class ProductsListComponent implements OnInit {
   pageSize = signal(20);
   currentIndex = signal(0);
   productsPerBatch = signal(20);
-  totalProducts = signal(300);
+  totalProducts = signal(600);
   isLoading = signal(false);
   alertMessage = signal(false);
 
@@ -26,7 +27,7 @@ export class ProductsListComponent implements OnInit {
     effect(() => {
       const message = this.cartService.alertMessage();
       this.alertMessage.set(message);
-      
+
       if (message) {
         setTimeout(() => {
           this.cartService.alertMessage.set(false);
